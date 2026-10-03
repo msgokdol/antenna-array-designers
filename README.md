@@ -83,7 +83,7 @@ The app combines an array factor with a selected element response. Its plots let
 
 **CST comparison.** With compatible CST data, the app compares its calculated cut and metrics with imported array results. CST workflows are optional; the app does not run a full-wave simulation itself.
 
-The [phased-array walkthrough](docs/phased-array-guide.md) provides a first experiment, and the [PDF user guide](phased-array/Planar_Phased_Array_Designer_Guide.pdf) covers detailed controls and CST formats.
+The [phased-array walkthrough](docs/phased-array-guide.md) provides a first experiment, and the [model and coordinate notes](docs/model-and-coordinates.md) explain the conventions behind its plots.
 
 ## Explore Reflectarray Designer
 
@@ -133,7 +133,7 @@ The plots are models, not a substitute for full-wave simulation or antenna measu
 
 ## Files and checks
 
-- [`phased-array/`](phased-array/) contains the standalone MATLAB source, an optional MATLAB installer, the existing [PDF user guide](phased-array/Planar_Phased_Array_Designer_Guide.pdf), image assets, and focused checks.
+- [`phased-array/`](phased-array/) contains the standalone MATLAB source, an optional MATLAB installer, image assets, and focused checks.
 - [`reflectarray/`](reflectarray/) contains the standalone MATLAB source, calculation helpers, icons, and its numerical/UI regression suite.
 - [`docs/screenshots/`](docs/screenshots/README.md) contains annotated screenshots of the controls, geometry, phase and illumination maps, 2D and 3D patterns, and frequency analyses.
 
