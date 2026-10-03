@@ -4,7 +4,7 @@
 
 ## Open the app
 
-Use MATLAB R2025b with its desktop interface. Set MATLAB's Current Folder to `phased-array` in this repository and enter `phasedArrayDesigner`. Keep the `.png` assets beside the `.m` file. Alternatively, open **Phased Array Designer.mlappinstall** from MATLAB to add an Apps-gallery tile. The [full PDF user guide](../phased-array/Planar_Phased_Array_Designer_Guide.pdf) is included for detailed controls and CST file formats.
+Use MATLAB R2025b with its desktop interface. Set MATLAB's Current Folder to `phased-array` in this repository and enter `phasedArrayDesigner`. Keep the `.png` assets beside the `.m` file. Alternatively, open **Phased Array Designer.mlappinstall** from MATLAB to add an Apps-gallery tile. The app's **Help → Online guide** opens this walkthrough.
 
 ## Make and steer an array
 
@@ -35,7 +35,7 @@ The **View** tab can pin a reference cut so you can compare it with a later conf
 
 ![Band-sweep analysis](screenshots/phased-array-band-sweep.png)
 
-Consult the PDF guide before interpreting its fixed-phase and true-time-delay choices. [Browse all app screenshots](screenshots/README.md) for the remaining main views.
+Fixed-phase steering keeps each element's design-frequency phase as frequency changes, so an off-broadside beam can squint. True-time-delay steering instead changes phase with frequency to preserve the intended time delay. [Browse all app screenshots](screenshots/README.md) for the remaining main views.
 
 **Coverage** maps scan performance across θ and φ. The **Targets** dialog lets you set optional thresholds for directivity, beamwidth, sidelobe level, and grating lobes. These are design checks, not physical tolerances.
 
@@ -43,7 +43,7 @@ Consult the PDF guide before interpreting its fixed-phase and true-time-delay ch
 
 ## Save, export, and compare
 
-Use **File → Save/Save As** for a reusable MATLAB `.mat` design and **File → Open** to restore it. **File → New** resets the design. **File → Export** writes the element table as CSV or a CST-oriented array TSV. CST workflows are optional: import a supported CST element far field to use a simulated element pattern, or load a whole-array CST result for comparison with a calculated cut. The required CST angular grid and polarization conventions are described in the PDF guide.
+Use **File → Save/Save As** for a reusable MATLAB `.mat` design and **File → Open** to restore it. **File → New** resets the design. **File → Export** writes the element table as CSV or a CST-oriented array TSV. CST workflows are optional: import a supported full-sphere CST realized-gain ASCII far field with complex Theta/Phi components to use a simulated element pattern, or load a whole-array CST result for comparison with a calculated cut. The import dialogs report the format and polarization requirements for the selected workflow.
 
 ![Example of MATLAB and imported CST cut metrics](screenshots/phased-array-cst-comparison.png)
 

@@ -6,7 +6,7 @@ The 2D pattern is a cut through a 3D radiation pattern, not a projection of ever
 
 ## Phased array
 
-The driven-array field combines element patterns with complex element excitations. Steering, amplitude taper, element rotation, and imported CST far-field data can change the result. Pattern and directivity labels depend on the selected factor and display mode. See the [phased-array walkthrough](phased-array-guide.md) and the bundled PDF guide for controls and CST formats.
+The driven-array field combines element patterns with complex element excitations. Steering, amplitude taper, element rotation, and imported CST far-field data can change the result. Pattern and directivity labels depend on the selected factor and display mode. See the [phased-array walkthrough](phased-array-guide.md) for controls and CST import guidance.
 
 ## Reflectarray
 
