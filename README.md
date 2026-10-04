@@ -133,7 +133,7 @@ The plots are models, not a substitute for full-wave simulation or antenna measu
 
 ## Files and checks
 
-- [`phased-array/`](phased-array/) contains the self-contained MATLAB source, an optional MATLAB installer, reference images, and focused checks. Only `phasedArrayDesigner.m` is needed to run the app.
+- [`phased-array/`](phased-array/) contains the self-contained MATLAB source, an optional MATLAB installer, and focused checks. Only `phasedArrayDesigner.m` is needed to run the app.
 - [`reflectarray/`](reflectarray/) contains the self-contained MATLAB source, separate calculation helpers and icons for development, and its numerical/UI regression suite. Only `reflectarrayDesigner.m` is needed to run the app.
 - [`docs/screenshots/`](docs/screenshots/README.md) contains annotated screenshots of the controls, geometry, phase and illumination maps, 2D and 3D patterns, and frequency analyses.
 
