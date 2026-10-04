@@ -22,7 +22,7 @@ You need MATLAB with its desktop interface. The apps were developed and checked 
    reflectarrayDesigner
    ```
 
-The phased-array folder also contains **Phased Array Designer.mlappinstall**. Double-click it in MATLAB if you prefer an app tile in the MATLAB Apps gallery. The standalone `.m` source is the clearest way to run and inspect the current code. Keep the files in each app's folder together so icons and supporting functions can be found.
+To share **Phased Array Designer**, send only `phased-array/phasedArrayDesigner.m`. The icons are included in that file, so the recipient can put it in any MATLAB folder and run `phasedArrayDesigner`. The optional **Phased Array Designer.mlappinstall** adds an app tile in the MATLAB Apps gallery. For **Reflectarray Designer**, keep its folder together because it uses separate calculation helpers and icons.
 
 ## Choose an app
 
@@ -133,10 +133,10 @@ The plots are models, not a substitute for full-wave simulation or antenna measu
 
 ## Files and checks
 
-- [`phased-array/`](phased-array/) contains the standalone MATLAB source, an optional MATLAB installer, image assets, and focused checks.
+- [`phased-array/`](phased-array/) contains the self-contained MATLAB source, an optional MATLAB installer, reference images, and focused checks. Only `phasedArrayDesigner.m` is needed to run the app.
 - [`reflectarray/`](reflectarray/) contains the standalone MATLAB source, calculation helpers, icons, and its numerical/UI regression suite.
 - [`docs/screenshots/`](docs/screenshots/README.md) contains annotated screenshots of the controls, geometry, phase and illumination maps, 2D and 3D patterns, and frequency analyses.
 
 From each app folder in MATLAB, run `testPhasedArrayDesigner2D`, `testPhasedArrayDesignerShapes`, or `testPhasedArrayDesignerElementReference` for focused phased-array checks, and `testReflectarrayDesigner` for reflectarray numerical and UI checks. These checks require the desktop UI.
 
-Copyright © 2026 Muhammed Said Gökdöl. **All rights reserved.** This public repository [does not grant a software reuse license](COPYRIGHT.md).
+Copyright © 2026 Muhammed Said Gökdöl. **All rights reserved.** This repository [does not grant a software reuse license](COPYRIGHT.md).
