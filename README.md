@@ -22,7 +22,7 @@ You need MATLAB with its desktop interface. The apps were developed and checked 
    reflectarrayDesigner
    ```
 
-To share **Phased Array Designer**, send only `phased-array/phasedArrayDesigner.m`. The icons are included in that file, so the recipient can put it in any MATLAB folder and run `phasedArrayDesigner`. The optional **Phased Array Designer.mlappinstall** adds an app tile in the MATLAB Apps gallery. For **Reflectarray Designer**, keep its folder together because it uses separate calculation helpers and icons.
+To share an app, send its main `.m` file: `phased-array/phasedArrayDesigner.m` or `reflectarray/reflectarrayDesigner.m`. Each includes the icons and calculations it needs, so the recipient can put the file in any MATLAB folder and run its function. The optional **Phased Array Designer.mlappinstall** adds a phased-array app tile in the MATLAB Apps gallery.
 
 ## Choose an app
 
@@ -134,7 +134,7 @@ The plots are models, not a substitute for full-wave simulation or antenna measu
 ## Files and checks
 
 - [`phased-array/`](phased-array/) contains the self-contained MATLAB source, an optional MATLAB installer, reference images, and focused checks. Only `phasedArrayDesigner.m` is needed to run the app.
-- [`reflectarray/`](reflectarray/) contains the standalone MATLAB source, calculation helpers, icons, and its numerical/UI regression suite.
+- [`reflectarray/`](reflectarray/) contains the self-contained MATLAB source, separate calculation helpers and icons for development, and its numerical/UI regression suite. Only `reflectarrayDesigner.m` is needed to run the app.
 - [`docs/screenshots/`](docs/screenshots/README.md) contains annotated screenshots of the controls, geometry, phase and illumination maps, 2D and 3D patterns, and frequency analyses.
 
 From each app folder in MATLAB, run `testPhasedArrayDesigner2D`, `testPhasedArrayDesignerShapes`, or `testPhasedArrayDesignerElementReference` for focused phased-array checks, and `testReflectarrayDesigner` for reflectarray numerical and UI checks. These checks require the desktop UI.
