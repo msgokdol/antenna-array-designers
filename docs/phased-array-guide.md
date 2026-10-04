@@ -4,7 +4,7 @@
 
 ## Open the app
 
-Use MATLAB R2025b with its desktop interface. Set MATLAB's Current Folder to `phased-array` in this repository and enter `phasedArrayDesigner`. Keep the `.png` assets beside the `.m` file. Alternatively, open **Phased Array Designer.mlappinstall** from MATLAB to add an Apps-gallery tile. The app's **Help → Online guide** opens this walkthrough.
+Use MATLAB R2025b with its desktop interface. Put `phasedArrayDesigner.m` in your MATLAB Current Folder and enter `phasedArrayDesigner`. This one file includes its artwork. Alternatively, open **Phased Array Designer.mlappinstall** from MATLAB to add an Apps-gallery tile. The app's **Help → Online guide** opens this walkthrough.
 
 ## Make and steer an array
 

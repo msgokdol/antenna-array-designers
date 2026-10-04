@@ -4,7 +4,7 @@
 
 ## Open the app
 
-Use MATLAB R2025b with its desktop interface. Set MATLAB's Current Folder to `reflectarray` in this repository and enter `reflectarrayDesigner`. Keep its helper `.m` files and `icons` folder alongside the main file. The app opens with **no cell selected**; click a blue cell in Geometry or a cell in the Phase Map to edit it.
+Use MATLAB R2025b with its desktop interface. Put `reflectarrayDesigner.m` in your MATLAB Current Folder and enter `reflectarrayDesigner`. This one file includes its icons and calculation helpers. The app opens with **no cell selected**; click a blue cell in Geometry or a cell in the Phase Map to edit it.
 
 The default is a 20 × 20 lattice trimmed to a circle, with dx = dy = 0.5 design wavelengths. Its reflecting cells lie at z = 0 and face +z. A yellow horn at (−40, 0, 120) mm illuminates the surface; the intended beam begins at broadside.
 
