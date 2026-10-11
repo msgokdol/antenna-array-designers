@@ -4,7 +4,7 @@ Two interactive MATLAB desktop apps for exploring planar antenna arrays. **Phase
 
 ![Phased Array Designer overview](docs/screenshots/phased-array-overview.png)
 
-**Phased Array Designer at a glance.** The Array, Element, and Beam controls define a driven aperture. The center shows active elements and their editable table; directivity metrics, a 3D radiation pattern, and a 2D cut appear on the right. The values shown are one example design.
+**Phased Array Designer at a glance.** The Array, Element, and Beam controls define a driven aperture. The center shows active elements and their editable table; directivity metrics, a 3D radiation pattern, and a 1D angular cut appear on the right. The values shown are one example design.
 
 ## Start here
 
@@ -30,7 +30,7 @@ To share an app, send its main `.m` file: `phased-array/phasedArrayDesigner.m` o
 |---|---|---|
 | Excitation | Driven array elements | Horn or incident plane wave reflected by a surface |
 | Main controls | Array shape, element pattern, amplitude/phase, steering | Surface shape, feed/incidence, reflection phase, target beam |
-| Results | 3D and 2D patterns, phase map, scan analyses, CST comparison | Geometry, four-term phase map, illumination map, 3D and 2D patterns, frequency sweep |
+| Results | 3D pattern and 1D angular cuts, phase map, scan analyses, CST comparison | Geometry, four-term phase map, illumination map, 3D pattern, 1D angular cuts, frequency sweep |
 | Project files | MATLAB `.mat` design | MATLAB `.mat` reflectarray project |
 
 Follow the [phased-array walkthrough](docs/phased-array-guide.md) or [reflectarray walkthrough](docs/reflectarray-guide.md) for a first experiment. The [screenshot gallery](docs/screenshots/README.md) shows the main controls and result views in both apps. The [model and coordinate notes](docs/model-and-coordinates.md) explain how to interpret angles, dB plots, and the differences between the two calculations.
@@ -43,15 +43,15 @@ Follow the [phased-array walkthrough](docs/phased-array-guide.md) or [reflectarr
 
 The app combines an array factor with a selected element response. Its plots let you inspect the full pattern, isolate the array factor, and check how steering behaves over angle and frequency.
 
-### Steered beam and 2D cuts
+### Steered beam and 1D cuts
 
 ![Phased-array 3D radiation pattern after steering](docs/screenshots/phased-array-steered-3d.png)
 
 **Steered 3D pattern.** The main lobe moves away from the +z array normal when the commanded direction changes. The smaller lobes are other directions in which the modeled array radiates.
 
-![Phased-array steered polar 2D pattern](docs/screenshots/phased-array-2d-pattern.png)
+![Phased-array steered polar 1D pattern](docs/screenshots/phased-array-2d-pattern.png)
 
-**Steered 2D cut.** A cut samples one plane of the 3D pattern. Its plane can follow the commanded beam phi or be set independently. Polar/Cartesian and relative/absolute-dBi choices change the presentation, not the underlying field.
+**Steered 1D cut.** A cut samples one plane of the 3D pattern. Its plane can follow the commanded beam phi or be set independently. Polar/Cartesian and relative/absolute-dBi choices change the presentation, not the underlying field.
 
 ![Phased-array array-factor-only polar cut](docs/screenshots/phased-array-array-factor.png)
 
@@ -73,7 +73,7 @@ The app combines an array factor with a selected element response. Its plots let
 
 ![Phased-array scan-coverage map](docs/screenshots/phased-array-coverage.png)
 
-**Coverage.** This map checks scan performance across a two-dimensional region of commanded theta and phi. A single 2D cut can miss poor behavior elsewhere in that region.
+**Coverage.** This map checks scan performance across a two-dimensional region of commanded theta and phi. A single 1D cut can miss poor behavior elsewhere in that region.
 
 ![Phased-array target criteria](docs/screenshots/phased-array-targets.png)
 
@@ -97,7 +97,7 @@ The app computes incident spatial phase, assigns reflection phases for an intend
 
 ![Reflectarray four-term phase map](docs/screenshots/reflectarray-phase-map.png)
 
-**Phase map.** The four panels show incident spatial phase, desired outgoing progressive phase, assigned cell-reflection phase, and a continuous-aperture reference. Reflection phase compensates the incoming path phase while steering the outgoing field; manual cell edits can change the assigned map.
+**Phase map.** The four panels show incident spatial phase, desired outgoing progressive phase, assigned cell-reflection phase, and a continuous-aperture reference. Reflection phase compensates the incoming path phase while steering the outgoing field; manual cell edits can change the assigned map. **Beam → Global Phase** adds a common offset (0°, 90°, 180°, 270°, or a typed angle) to all cells. It shifts the phase maps and exported phases while leaving the modeled radiation magnitude and directivity unchanged.
 
 ![Reflectarray incident and effective amplitude maps](docs/screenshots/reflectarray-illumination-map.png)
 
@@ -109,13 +109,13 @@ The app computes incident spatial phase, assigns reflection phases for an intend
 
 **3D pattern.** The surface shows modeled relative field over the forward hemisphere. Its main and side lobes show radiation in different directions.
 
-![Reflectarray 3D pattern with selected 2D cut highlighted](docs/screenshots/reflectarray-3d-cut-overlay.png)
+![Reflectarray 3D pattern with selected 1D cut highlighted](docs/screenshots/reflectarray-3d-cut-overlay.png)
 
-**Selected cut on 3D.** The highlighted curve marks where the selected theta or phi cut intersects the 3D pattern. A lobe outside that slice can appear in 3D but not in the 2D view.
+**Selected cut on 3D.** The highlighted curve marks where the selected theta or phi cut intersects the 3D pattern. A lobe outside that slice can appear in 3D but not in the selected cut.
 
-![Reflectarray polar 2D pattern and cut controls](docs/screenshots/reflectarray-2d-pattern.png)
+![Reflectarray polar 1D pattern and cut controls](docs/screenshots/reflectarray-2d-pattern.png)
 
-**2D pattern.** A theta cut varies theta at a selected phi; **Follow beam** uses the intended beam's phi. A phi cut varies phi at a fixed theta. Choose Polar or Cartesian, and optionally show modeled absolute directivity in dBi instead of peak-relative dB.
+**1D pattern cut.** A theta cut varies theta at a selected phi; **Follow beam** uses the intended beam's phi. A phi cut varies phi at a fixed theta. Choose Polar or Cartesian, and optionally show modeled absolute directivity in dBi instead of peak-relative dB.
 
 ### Frequency behavior
 
@@ -135,7 +135,7 @@ The plots are models, not a substitute for full-wave simulation or antenna measu
 
 - [`phased-array/`](phased-array/) contains the self-contained MATLAB source, an optional MATLAB installer, and focused checks. Only `phasedArrayDesigner.m` is needed to run the app.
 - [`reflectarray/`](reflectarray/) contains the self-contained MATLAB source, separate calculation helpers and icons for development, and its numerical/UI regression suite. Only `reflectarrayDesigner.m` is needed to run the app.
-- [`docs/screenshots/`](docs/screenshots/README.md) contains annotated screenshots of the controls, geometry, phase and illumination maps, 2D and 3D patterns, and frequency analyses.
+- [`docs/screenshots/`](docs/screenshots/README.md) contains annotated screenshots of the controls, geometry, phase and illumination maps, 1D cuts and 3D patterns, and frequency analyses.
 
 From each app folder in MATLAB, run `testPhasedArrayDesigner2D`, `testPhasedArrayDesignerShapes`, or `testPhasedArrayDesignerElementReference` for focused phased-array checks, and `testReflectarrayDesigner` for reflectarray numerical and UI checks. These checks require the desktop UI.
 
