@@ -11,24 +11,28 @@ The default is a 20 × 20 lattice trimmed to a circle, with dx = dy = 0.5 design
 ## Try a beam-steering change
 
 1. In **Design**, set the design and operating frequencies, row/column counts, and dx/dy in wavelengths. Design frequency determines physical cell spacing; changing operating frequency does not move the cells.
-2. In **Beam → Illumination**, leave **Horn** selected and adjust its X/Y/Z phase-center coordinates if desired. **Intended Beam** sets the target θ/φ or elevation/azimuth. Try θ = 30° and φ = 30°.
-3. Open **3D Pattern** to see the modeled reflected beam. In **2D Pattern**, choose a **Theta cut** at the target φ. **Follow beam** updates that fixed cut plane as the beam φ changes. Uncheck it and set **Cut φ** to inspect another plane. A **Phi cut** instead sweeps φ at a fixed **Cut θ**.
-4. Switch between **Polar** and **Cartesian**. **Absolute dBi** displays modeled directivity; without it, the curve is peak-relative dB. **Show selected 2D cut** overlays the current cut on the 3D view when you want to see where that slice crosses the full pattern.
+2. In **Beam → Illumination**, leave **Horn** selected and adjust its X/Y/Z phase-center coordinates if desired. **Intended Beam** sets the target θ/φ or elevation/azimuth. Try θ = 30° and φ = 30°. **Global Phase** adds one offset to every cell; use 90° steps or type any angle.
+3. Open **3D Pattern** to see the modeled reflected beam. In **1D Pattern**, choose a **Theta cut** at the target φ. **Follow beam** updates that fixed cut plane as the beam φ changes. Uncheck it and set **Cut φ** to inspect another plane. A **Phi cut** instead sweeps φ at a fixed **Cut θ**.
+4. Switch between **Polar** and **Cartesian**. **Absolute dBi** displays modeled directivity; without it, the curve is peak-relative dB. **Show selected 1D cut** overlays the current cut on the 3D view when you want to see where that slice crosses the full pattern.
 
-![2D cut](screenshots/reflectarray-2d-pattern.png)
+![1D angular cut](screenshots/reflectarray-2d-pattern.png)
 
-To see where that cut passes through the full 3D pattern, check **Show selected 2D cut** on the 3D Pattern view. The highlighted curve is the chosen cut, not a second independently calculated beam:
+To see where that cut passes through the full 3D pattern, check **Show selected 1D cut** on the 3D Pattern view. The highlighted curve is the chosen cut, not a second independently calculated beam:
 
-![3D pattern with selected 2D cut overlaid](screenshots/reflectarray-3d-cut-overlay.png)
+![3D pattern with selected 1D cut overlaid](screenshots/reflectarray-3d-cut-overlay.png)
 
 ## See why phases and illumination differ
 
 Open **Phase Map**. Its **Show** menu has two choices:
 
-- **Phase map** compares incident spatial phase, outgoing progressive phase, assigned cell-reflection phase, and a dense continuous-aperture reference. The assigned map can differ after you manually edit cells.
+- **Phase map** compares incident spatial phase, outgoing progressive phase, assigned cell-reflection phase, and a dense continuous-aperture reference. The assigned map can differ after you manually edit cells. A global phase offset shifts assigned and continuous phases while preserving manual phase differences and the radiation pattern magnitude.
 - **Illumination map** shows incident field amplitude and effective aperture amplitude after optional taper, each in dB relative to its brightest active cell.
 
 ![Four phase terms](screenshots/reflectarray-phase-map.png)
+
+**Global Phase** set to 90° shifts the assigned and continuous phase maps but leaves the radiation magnitude unchanged:
+
+![Global phase offset at 90 degrees](screenshots/reflectarray-global-phase-map.png)
 
 ![Illumination map](screenshots/reflectarray-illumination-map.png)
 

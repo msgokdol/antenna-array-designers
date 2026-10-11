@@ -11,15 +11,15 @@ Use MATLAB R2025b with its desktop interface. Put `phasedArrayDesigner.m` in you
 1. Open the **Array** tab. Start with the default 8 × 8 uniform grid at dx = dy = 0.5 λ. M counts rows along y; N counts columns along x. Click the shape tiles or their dropdown to try Custom, Diamond, Hexagon, Octagon, Circle, and Ellipse. The center layout shows the active cells.
 2. Open **Element** and choose an element pattern. Isotropic is the simplest array-factor experiment; cosine, patch, dipole, and other analytic patterns show how a single element reshapes the total beam. The CST imported-element option requires a compatible far-field file.
 3. Open **Beam** and set the intended direction, for example θ = 30° and φ = 30°. θ is measured from the +z surface normal, and φ is measured from +x in the array plane. If **Auto** is off, press **Compute pattern** after changing controls.
-4. Inspect the 3D radiation plot and its 2D cut. The **2D cut plane follows steering phi** option rotates a theta/elevation cut with the commanded φ. Turn it off to inspect another plane without changing the beam itself.
+4. Inspect the 3D radiation plot and its 1D angular cut. The **1D cut plane follows steering phi** option rotates a theta/elevation cut with the commanded φ. Turn it off to inspect another plane without changing the beam itself.
 
-![Steered 2D pattern](screenshots/phased-array-2d-pattern.png)
+![Steered 1D pattern](screenshots/phased-array-2d-pattern.png)
 
-The **2D Pattern** result offers polar and Cartesian displays and lets you plot the total pattern, array factor only, or element factor only. Choose relative dB to compare lobe shapes or **Absolute dBi** to read the model's directivity scale. A cut can miss a lobe visible in 3D if the lobe lies outside that cut plane.
+The **1D Pattern** result offers polar and Cartesian displays and lets you plot the total pattern, array factor only, or element factor only. Choose relative dB to compare lobe shapes or **Absolute dBi** to read the model's directivity scale. A cut can miss a lobe visible in 3D if the lobe lies outside that cut plane.
 
 For example, switching **Pattern** to **Array factor only** isolates the geometry and excitation from the element-factor shape:
 
-![Array-factor-only 2D cut](screenshots/phased-array-array-factor.png)
+![Array-factor-only 1D cut](screenshots/phased-array-array-factor.png)
 
 ## Explore phase and amplitude
 

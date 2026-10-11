@@ -2,7 +2,7 @@
 
 Both apps place the array or reflecting surface in the **xy plane** and use **+z** as its outward normal. Spherical **θ** is measured from +z; **φ** is measured in the xy plane from +x toward +y. Thus θ = 0° is broadside. The apps can display elevation instead, where elevation = 90° − θ for a forward-hemisphere direction.
 
-The 2D pattern is a cut through a 3D radiation pattern, not a projection of every lobe in that pattern. A **Theta cut** varies θ at a fixed φ plane; a **Phi cut** varies φ at a fixed θ. In the reflectarray app, **Follow beam** keeps the fixed cut angle aligned with the commanded beam until unchecked. The phased-array app has an analogous cut-plane control in the Beam tab. A 3D rendering can therefore show lobes that are absent from the currently selected 2D cut.
+A theta or phi angular cut is a one-dimensional slice through a 3D radiation pattern. Polar and Cartesian charts draw that slice in two dimensions; they do not project every lobe into the cut. A **Theta cut** varies θ at a fixed φ plane; a **Phi cut** varies φ at a fixed θ. In the reflectarray app, **Follow beam** keeps the fixed cut angle aligned with the commanded beam until unchecked. The phased-array app has an analogous cut-plane control in the Beam tab. A 3D rendering can therefore show lobes that are absent from the currently selected angular cut.
 
 ## Phased array
 
@@ -10,7 +10,7 @@ The driven-array field combines element patterns with complex element excitation
 
 ## Reflectarray
 
-For cell position **r = (x, y, 0)**, operating wavenumber **k = 2π/λ**, and target direction **u = (sinθ cosφ, sinθ sinφ)**, the synthesized reflection phase compensates incident phase and adds the outgoing phase gradient. For a horn at **F**, the incident path is **R = |r − F|** and the assigned phase is **k(R − x uₓ − y uᵧ)** modulo 2π. For a plane wave, the source angle defines an incoming direction toward the surface and the corresponding incident path is **−(x uᵢₓ + y uᵢᵧ)**.
+For cell position **r = (x, y, 0)**, operating wavenumber **k = 2π/λ**, and target direction **u = (sinθ cosφ, sinθ sinφ)**, the synthesized reflection phase compensates incident phase and adds the outgoing phase gradient. For a horn at **F**, the incident path is **R = |r − F|** and the assigned phase is **k(R − x uₓ − y uᵧ) + φ₀** modulo 2π, where **φ₀** is the user-selected global phase offset. For a plane wave, the source angle defines an incoming direction toward the surface and the corresponding incident path is **−(x uᵢₓ + y uᵢᵧ)**. Adding the same **φ₀** to every cell multiplies the complex far field by **exp(jφ₀)**; its magnitude, pointing, and directivity do not change in this phase-only model.
 
 The horn field amplitude at a cell is proportional to **max(cos α, 0)^q / R**, where α is its angle from horn boresight. Synthesized phase compensates spatial phase delay; it does not make that amplitude uniform. A normal-incidence plane wave gives uniform incident amplitude in this model. **Extra taper** adds an optional mathematical Hann weighting after illumination.
 
