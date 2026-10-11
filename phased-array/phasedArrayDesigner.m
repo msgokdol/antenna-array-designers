@@ -463,7 +463,7 @@ ribbonWrap.Padding = [0 0 0 0];
 ribbonWrap.RowSpacing = 0;
 
 designTaskNames = {'Array','Element','Beam','View'};
-resultTaskNames = {'2D Pattern','Phase Map','Scan Loss','Max Scan', ...
+resultTaskNames = {'1D Pattern','Phase Map','Scan Loss','Max Scan', ...
     'Band Sweep','Coverage','CST Compare'};
 resultOwners = [4 3 3 3 3 3 4];
 taskNames = [designTaskNames resultTaskNames];
@@ -610,7 +610,7 @@ cstComparisonClosed = false;
 
 gPattern2D = ribbonPanel(gVw,'PATTERN');
 gPattern2D.ColumnWidth = {'1x'};
-uibutton(gPattern2D,'Text','2D pattern','Icon',ribbonIconFile('polar2d'), ...
+uibutton(gPattern2D,'Text','1D pattern','Icon',ribbonIconFile('polar2d'), ...
     'IconAlignment','top','FontSize',11,'Tag','btnPattern2D', ...
     'Tooltip','Open polar azimuth/elevation cuts or a direction-cosine U cut', ...
     'ButtonPushedFcn',@(s,e)showPattern2D(''));
@@ -748,7 +748,7 @@ uimenu(mView,'Text','Load CST array result…','Tag','menuLoadCstOverlay', ...
 uimenu(mView,'Text','Clear CST overlay','Tag','menuClearCstOverlay', ...
     'Tooltip','Remove the CST comparison trace and table', ...
     'MenuSelectedFcn',@(s,e)clearCstOverlay());
-menuPattern2D = uimenu(mView,'Text','2D pattern','Tag','menuPattern2D', ...
+menuPattern2D = uimenu(mView,'Text','1D pattern','Tag','menuPattern2D', ...
     'Tooltip','Open an azimuth, elevation, or U-pattern cut in the main workspace');
 for patternName = {'Azimuth pattern','Elevation pattern','U pattern'}
     itemName = patternName{1};
@@ -1131,7 +1131,7 @@ spPh = uispinner(gS,'Limits',[-180 360],'Value',S.phi_s,'Step',5,'Tag','spSteerS
     'ValueChangedFcn',@(s,e)assignSteer('p',s.Value), ...
     'Tooltip','Steer theta / phi. Edit this value in the units shown.');
 r = r+1;
-cbCutFollow = uicheckbox(c,'Text','2D cut plane follows steering phi', ...
+cbCutFollow = uicheckbox(c,'Text','1D cut plane follows steering phi', ...
     'Value',S.cutPhiFollow,'ValueChangedFcn',@(s,e)assignCutPhiFollow(s.Value), ...
     'Tag','cbCutFollow', ...
     'Tooltip',['For elevation and U cuts, keep the observation plane at ' ...
@@ -2967,7 +2967,7 @@ applyFreqUnit();          % put both spinners into the startup unit
             lblCutPhi.Text = 'Cut azimuth (deg)';
             lblCutTheta.Text = 'Az-cut elevation (deg)';
             bCut0.Text = 'az=0'; bCut90.Text = 'az=90';
-            cbCutFollow.Text = '2D cut plane follows steering azimuth';
+            cbCutFollow.Text = '1D cut plane follows steering azimuth';
             cbCutFollow.Tooltip = ['For elevation and U cuts, keep the ' ...
                 'observation plane at the steered azimuth. Uncheck to ' ...
                 'inspect another plane.'];
@@ -2988,7 +2988,7 @@ applyFreqUnit();          % put both spinners into the startup unit
             lblCutPhi.Text = 'Cut phi (deg)';
             lblCutTheta.Text = 'Theta for phi-cut (deg)';
             bCut0.Text = 'phi=0'; bCut90.Text = 'phi=90';
-            cbCutFollow.Text = '2D cut plane follows steering phi';
+            cbCutFollow.Text = '1D cut plane follows steering phi';
             cbCutFollow.Tooltip = ['For theta and U cuts, keep the ' ...
                 'observation plane at the steered phi. Uncheck to ' ...
                 'inspect another plane.'];
@@ -4323,7 +4323,7 @@ applyFreqUnit();          % put both spinners into the startup unit
         newWindow = false;
         if isempty(pattern2DWin) || ~isgraphics(pattern2DWin)
             newWindow = true;
-            pattern2DWin = resultPane('2D Pattern','pattern2DWin');
+            pattern2DWin = resultPane('1D Pattern','pattern2DWin');
             layout2D = uigridlayout(pattern2DWin,[3 1]);
             layout2D.RowHeight = {76,'1x',52};
             layout2D.Padding = [12 8 12 8];
@@ -4332,7 +4332,7 @@ applyFreqUnit();          % put both spinners into the startup unit
             controls2D.ColumnWidth = {85,175,105,100,62,175,'1x'};
             controls2D.RowHeight = {32,32};
             controls2D.Padding = [0 0 0 0];
-            c2 = uilabel(controls2D,'Text','2D view');
+            c2 = uilabel(controls2D,'Text','1D cut');
             c2.Layout.Row = 1; c2.Layout.Column = 1;
             c2 = uidropdown(controls2D, ...
                 'Items',{'Azimuth pattern','Elevation pattern','U pattern'}, ...
@@ -4385,7 +4385,7 @@ applyFreqUnit();          % put both spinners into the startup unit
             note2D.Layout.Row = 3;
             mutedLbls(end+1) = note2D;
         else
-            selectTask('2D Pattern');
+            selectTask('1D Pattern');
         end
         dd = findall(pattern2DWin,'Tag','ddPattern2DMode');
         if ~strcmp(dd.Value,mode) || newWindow
@@ -4441,7 +4441,7 @@ applyFreqUnit();          % put both spinners into the startup unit
             host = findall(pattern2DWin,'Tag','pattern2DPlotHost');
             delete(host.Children);
             note = findall(pattern2DWin,'Tag','lblPattern2DNote');
-            note.Text = 'Pattern is out of date. Click 2D pattern to recompute.';
+            note.Text = 'Pattern is out of date. Click 1D pattern to recompute.';
             return;
         end
         dd = findall(pattern2DWin,'Tag','ddPattern2DMode');
@@ -4514,8 +4514,8 @@ applyFreqUnit();          % put both spinners into the startup unit
             end
         catch cutErr
             note = findall(pattern2DWin,'Tag','lblPattern2DNote');
-            note.Text = ['2D pattern unavailable: ' cutErr.message];
-            setStatus(['2D pattern unavailable: ' cutErr.message],'warn');
+            note.Text = ['1D pattern unavailable: ' cutErr.message];
+            setStatus(['1D pattern unavailable: ' cutErr.message],'warn');
             return;
         end
         DR = spDR.Value;
@@ -10049,7 +10049,7 @@ applyFreqUnit();          % put both spinners into the startup unit
                     'and coordinates, not the physical direction. Beam squint fixes the ' ...
                     'phases at the design frequency.' newline newline ...
                     '4. View: compute, choose a cut and its polarization. Pin a reference ' ...
-                    'or load a whole-array CST overlay to compare. 2D pattern opens ' ...
+                    'or load a whole-array CST overlay to compare. 1D pattern opens ' ...
                     'polar azimuth/elevation views and a signed-U cut. Analysis offers scan loss, ' ...
                     'band sweep and scan coverage.' newline newline ...
                     '5. Export: save the design; use CST .tsv for element excitations or ' ...

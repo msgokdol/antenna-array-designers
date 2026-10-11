@@ -21,7 +21,7 @@ viewTab.ButtonPushedFcn(viewTab,[]);
 workspace = findall(main,'Tag','resultWorkspace');
 assert(strcmp(workspace.Visible,'off'), ...
     'View tab did not restore the array and 3D workspace.');
-patternTab = findall(main,'Tag','tab2D Pattern');
+patternTab = findall(main,'Tag','tab1D Pattern');
 patternTab.ButtonPushedFcn(patternTab,[]);
 assert(strcmp(win.Visible,'on') && strcmp(viewRibbon.Visible,'on'), ...
     'Returning to the 2D tab lost the plot or View ribbon.');
@@ -167,7 +167,7 @@ assert(strcmp(main.Theme.BaseColorStyle,'light') && ...
 % The crossed-dipole guide depicts the two circular-polarization lobes,
 % whereas its combined power has a shallow (3 dB) equatorial waist. A
 % 40 dB radius made that combined 2D cut look almost circular.
-closeTab = findall(main,'Tag','close2D Pattern');
+closeTab = findall(main,'Tag','close1D Pattern');
 assert(isprop(closeTab,'ImageClickedFcn') && ...
     isequal(closeTab.Parent,patternTab.Parent), ...
     'The close glyph should sit inside the result tab.');
@@ -217,5 +217,5 @@ assert(abs(right.RData(iFront)-1)<0.02 && right.RData(iBack)<0.01 && ...
 scale.Value = 'dB (dynamic range)'; scale.ValueChangedFcn(scale,[]);
 assert(strcmp(findall(win,'Tag','cbPattern2DAbs').Visible,'on'), ...
     'Absolute dBi control should be available in the dB-radius view.');
-fprintf('2D azimuth, elevation, U, and crossed-dipole CP views passed.\n');
+fprintf('1D azimuth, elevation, U, and crossed-dipole CP views passed.\n');
 end
