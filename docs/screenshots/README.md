@@ -6,9 +6,9 @@ These are example states of the two MATLAB apps. Numeric results depend on the a
 
 | View | What to look for |
 | --- | --- |
-| [Array and 3D overview](phased-array-overview.png) | Shape selector, wavelength-based spacing, editable element table, directivity cards, 3D pattern, and a principal 2D cut. |
+| [Array and 3D overview](phased-array-overview.png) | Shape selector, wavelength-based spacing, editable element table, directivity cards, 3D pattern, and a principal 1D cut. |
 | [Steered 3D pattern](phased-array-steered-3d.png) | The main lobe moves away from +z after steering. |
-| [Steered 2D cut](phased-array-2d-pattern.png) | Cut-plane controls, steering φ, polar display, and absolute dBi option. |
+| [Steered 1D cut](phased-array-2d-pattern.png) | Cut-plane controls, steering φ, polar display, and absolute dBi option. |
 | [Array-factor-only cut](phased-array-array-factor.png) | Pattern menu isolates the array factor from the element response. |
 | [Phase map](phased-array-phase-map.png) | Per-element excitation phase and its tabular values after steering. |
 | [Scan loss](phased-array-scan-loss.png) | Directivity in the commanded direction versus steering angle. |
@@ -19,13 +19,13 @@ These are example states of the two MATLAB apps. Numeric results depend on the a
 
 ### Array and 3D overview
 
-![Phased-array geometry, controls, 3D radiation pattern, and 2D cut](phased-array-overview.png)
+![Phased-array geometry, controls, 3D radiation pattern, and 1D cut](phased-array-overview.png)
 
 ![Steered phased-array 3D radiation pattern](phased-array-steered-3d.png)
 
-### Steered 2D cut and array factor
+### Steered 1D cut and array factor
 
-![Polar 2D pattern with steering and cut controls](phased-array-2d-pattern.png)
+![Polar 1D pattern with steering and cut controls](phased-array-2d-pattern.png)
 
 ![Array-factor-only polar cut](phased-array-array-factor.png)
 
@@ -54,10 +54,11 @@ These are example states of the two MATLAB apps. Numeric results depend on the a
 | [Horn-fed geometry](reflectarray-geometry.png) | +z-facing cells, horn, design-frequency spacing, and no cell selected at launch. |
 | [Plane-wave geometry](reflectarray-plane-wave.png) | One incoming red wavefront and arrow in place of the horn. |
 | [Phase map](reflectarray-phase-map.png) | Incident spatial phase, progressive phase, assigned reflection phase, and continuous-aperture reference. |
+| [Global phase offset](reflectarray-global-phase-map.png) | A 90° common offset shifts assigned cell phases while preserving the radiation pattern. |
 | [Illumination map](reflectarray-illumination-map.png) | Incident amplitude and effective amplitude after optional taper. |
 | [3D pattern](reflectarray-3d-pattern.png) | Directional reflected field over the forward hemisphere. |
-| [3D pattern with cut](reflectarray-3d-cut-overlay.png) | The optional highlighted 2D cut on the 3D surface. |
-| [2D pattern](reflectarray-2d-pattern.png) | Theta/phi cut, polar/Cartesian display, follow-beam control, and absolute dBi option. |
+| [3D pattern with cut](reflectarray-3d-cut-overlay.png) | The optional highlighted 1D cut on the 3D surface. |
+| [1D pattern](reflectarray-2d-pattern.png) | Theta/phi cut, polar/Cartesian display, follow-beam control, and absolute dBi option. |
 | [Frequency sweep](reflectarray-frequency-sweep.png) | Fixed-phase directivity and peak pointing as frequency changes. |
 
 ### Illumination and geometry
@@ -70,15 +71,17 @@ These are example states of the two MATLAB apps. Numeric results depend on the a
 
 ![Reflectarray four-term phase map](reflectarray-phase-map.png)
 
+![Reflectarray phase map with 90-degree global phase offset](reflectarray-global-phase-map.png)
+
 ![Reflectarray illumination map](reflectarray-illumination-map.png)
 
 ### Radiation patterns
 
 ![Reflectarray 3D radiation pattern](reflectarray-3d-pattern.png)
 
-![Reflectarray 3D pattern with selected 2D cut](reflectarray-3d-cut-overlay.png)
+![Reflectarray 3D pattern with selected 1D cut](reflectarray-3d-cut-overlay.png)
 
-![Reflectarray polar 2D theta cut and steering controls](reflectarray-2d-pattern.png)
+![Reflectarray polar 1D theta cut and steering controls](reflectarray-2d-pattern.png)
 
 ### Frequency sweep
 
