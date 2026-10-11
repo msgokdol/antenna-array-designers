@@ -55,6 +55,8 @@ switch project.formatVersion
         % Alternating-row stagger format.
     case 5
         % Selectable incident-field format.
+    case 6
+        % Global phase-offset format.
     otherwise
         error('Reflectarray:Project','Not a supported reflectarray project.');
 end
@@ -122,6 +124,10 @@ if project.formatVersion == 4
     project.incidentThetaDeg = 0;
     project.incidentPhiDeg = 0;
     project.formatVersion = 5;
+end
+if project.formatVersion == 5
+    project.phaseOffsetDeg = 0;
+    project.formatVersion = 6;
 end
 % Older projects stored a drawing-only cell angle. It had no
 % effect on the scalar pattern and is no longer part of the model.

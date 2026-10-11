@@ -13,6 +13,7 @@ defaults = struct('M',20,'N',20,'dxLambda',0.5,'dyLambda',0.5, ...
     'shape','Circle','feedMM',[-40 0 120],'feedQ',4, ...
     'illuminationMode','Horn','incidentThetaDeg',0,'incidentPhiDeg',0, ...
     'beamThetaDeg',0,'beamPhiDeg',0,'angleConvention','Theta / phi', ...
+    'phaseOffsetDeg',0, ...
     'taper','None','manualEnabled',false,'manualPhaseDeg',[], ...
     'gridAngleDeg',90,'rowStaggerLambda',0,'staggerAngleDeg',0, ...
     'activeMask',[],'xOffsetLambda',zeros(20), ...
@@ -53,7 +54,7 @@ bar = uigridlayout(root,[1 11]);
 bar.ColumnWidth = {88,88,88,88,128,'1x',68,68,68,68,68};
 bar.RowHeight = {'1x'}; bar.Padding = [3 3 3 3];
 bar.ColumnSpacing = 4; bar.BackgroundColor = NAVY;
-viewNames = {'Geometry','Phase Map','3D Pattern','2D Pattern', ...
+viewNames = {'Geometry','Phase Map','3D Pattern','1D Pattern', ...
     'Frequency Sweep'};
 viewButtons = gobjects(1,numel(viewNames));
 for j = 1:numel(viewNames)
@@ -144,8 +145,8 @@ left = uigridlayout(designPanel,[4 1]);
 left.RowHeight = {132,82,165,'1x'};
 left.Padding = [0 0 0 0]; left.RowSpacing = 6;
 left.BackgroundColor = BG;
-beamLeft = uigridlayout(beamPanel,[4 1]);
-beamLeft.RowHeight = {132,98,90,'1x'};
+beamLeft = uigridlayout(beamPanel,[5 1]);
+beamLeft.RowHeight = {132,98,84,90,'1x'};
 beamLeft.Padding = [0 0 0 0]; beamLeft.RowSpacing = 6;
 beamLeft.BackgroundColor = BG;
 
@@ -247,7 +248,25 @@ spPhi = number(g,S.beamPhiDeg,[0 360],1,2,4,@(~,~)setBeam());
 spPhi.Tag = 'reflectarrayBeamPhi';
 spPhi.Tooltip = 'Azimuth angle measured from +x in the xy plane.';
 
-pTaper = section(beamLeft,'AMPLITUDE'); pTaper.Layout.Row = 3;
+pPhaseOffset = section(beamLeft,'GLOBAL PHASE');
+pPhaseOffset.Layout.Row = 3;
+gOffset = uigridlayout(pPhaseOffset,[2 2]);
+gOffset.ColumnWidth = {115,'1x'};
+gOffset.RowHeight = {27,'1x'};
+gOffset.Padding = [7 4 7 4];
+gOffset.BackgroundColor = PANEL;
+label(gOffset,'Offset (°)',1,1);
+spPhaseOffset = number(gOffset,S.phaseOffsetDeg,[0 360],90,1,2, ...
+    @(src,~)setPhaseOffset(src.Value));
+spPhaseOffset.Tag = 'reflectarrayGlobalPhaseOffset';
+spPhaseOffset.Tooltip = ['Add this phase to every active cell. Type any ' ...
+    'angle or use 90° steps; the radiation magnitude is unchanged.'];
+offsetNote = uilabel(gOffset, ...
+    'Text','Shifts all cell phases; pattern and directivity stay the same.', ...
+    'FontColor',MUTED,'FontSize',10,'WordWrap','on');
+offsetNote.Layout.Row = 2; offsetNote.Layout.Column = [1 2];
+
+pTaper = section(beamLeft,'AMPLITUDE'); pTaper.Layout.Row = 4;
 gt = uigridlayout(pTaper,[2 2]); gt.ColumnWidth = {115,'1x'};
 gt.RowHeight = {27,'1x'}; gt.Padding = [7 5 7 5];
 gt.BackgroundColor = PANEL;
@@ -393,7 +412,7 @@ patternGrid.BackgroundColor = PANEL;
 patternTools = uigridlayout(patternGrid,[1 2]);
 patternTools.ColumnWidth = {175,'1x'};
 patternTools.Padding = [0 0 0 0]; patternTools.BackgroundColor = PANEL;
-cbShow3DCut = uicheckbox(patternTools,'Text','Show selected 2D cut', ...
+cbShow3DCut = uicheckbox(patternTools,'Text','Show selected 1D cut', ...
     'Value',false,'FontColor',WHITE,'FontSize',11, ...
     'Tag','reflectarrayShow3DCut', ...
     'ValueChangedFcn',@(~,~)drawPattern3D());
@@ -895,6 +914,19 @@ updateWindowTitle();
             S.beamThetaDeg = 90-spTheta.Value;
         end
         S.beamPhiDeg = spPhi.Value;
+        markDirty();
+        refreshAll();
+    end
+
+    function setPhaseOffset(value)
+        nextOffset = mod(value,360);
+        delta = nextOffset-S.phaseOffsetDeg;
+        spPhaseOffset.Value = nextOffset;
+        if abs(delta) < 1e-12, return; end
+        if S.manualEnabled
+            S.manualPhaseDeg = mod(S.manualPhaseDeg+delta,360);
+        end
+        S.phaseOffsetDeg = nextOffset;
         markDirty();
         refreshAll();
     end
@@ -1965,7 +1997,7 @@ updateWindowTitle();
             if isequal(file,0), return; end
             destination = fullfile(path,file);
         end
-        project = S; project.formatVersion = 5;
+        project = S; project.formatVersion = 6;
         try
             save(destination,'project');
             projectFile = destination;
@@ -2102,6 +2134,7 @@ updateWindowTitle();
         spFz.Value = S.feedMM(3); spQ.Value = S.feedQ;
         syncIlluminationControls();
         ddConvention.Value = S.angleConvention;
+        spPhaseOffset.Value = S.phaseOffsetDeg;
         ddTaper.Value = S.taper;
         setConvention();
     end
@@ -2334,6 +2367,13 @@ if ~isnumeric(P.beamThetaDeg) || ~isnumeric(P.beamPhiDeg) || ...
         P.beamThetaDeg < 0 || P.beamThetaDeg > 90
     error('Reflectarray:Beam','Beam theta must be between 0 and 90 degrees.');
 end
+phaseOffsetDeg = settingOr(P,'phaseOffsetDeg',0);
+if ~isnumeric(phaseOffsetDeg) || ~isreal(phaseOffsetDeg) || ...
+        ~isscalar(phaseOffsetDeg) || ~isfinite(phaseOffsetDeg) || ...
+        phaseOffsetDeg < 0 || phaseOffsetDeg >= 360
+    error('Reflectarray:PhaseOffset', ...
+        'Global phase offset must be in [0, 360) degrees.');
+end
 
 designLambdaMM = 299.792458 / P.designFreqGHz;
 operatingLambdaMM = 299.792458 / P.opFreqGHz;
@@ -2408,8 +2448,8 @@ else
     illumination = ones(P.M,P.N);
 end
 pathDifference = incidentPathMM-X*ux-Y*uy;
-idealPhaseDeg = mod(rad2deg(k*pathDifference),360);
-referencePhaseDeg = mod(rad2deg(kPhase*pathDifference),360);
+idealPhaseDeg = mod(rad2deg(k*pathDifference)+phaseOffsetDeg,360);
+referencePhaseDeg = mod(rad2deg(kPhase*pathDifference)+phaseOffsetDeg,360);
 
 switch char(P.taper)
     case 'None'
@@ -2449,6 +2489,7 @@ A = struct('X',X,'Y',Y,'x',x,'y',y,'active',active,'R',R, ...
     'incidentThetaDeg',incidentThetaDeg, ...
     'incidentPhiDeg',incidentPhiDeg, ...
     'phaseReferenceGHz',phaseReferenceGHz, ...
+    'phaseOffsetDeg',phaseOffsetDeg, ...
     'beamThetaDeg',theta,'beamPhiDeg',phi, ...
     'baseX',baseX,'baseY',baseY);
 end
@@ -2698,7 +2739,8 @@ else
     uiY = sind(A.incidentThetaDeg)*sind(A.incidentPhiDeg);
     incidentPathMM = -(X*uiX+Y*uiY);
 end
-maps.continuousDeg = mod(rad2deg(k*(incidentPathMM-X*ux-Y*uy)),360);
+maps.continuousDeg = mod( ...
+    rad2deg(k*(incidentPathMM-X*ux-Y*uy))+A.phaseOffsetDeg,360);
 maps.continuousMask = reflectarrayShapeMask(X,Y,S.shape);
 if ~any(A.active(:)), maps.continuousMask(:) = false; end
 maps.continuousXMM = x;
@@ -2804,6 +2846,8 @@ switch project.formatVersion
         % Alternating-row stagger format.
     case 5
         % Selectable incident-field format.
+    case 6
+        % Global phase-offset format.
     otherwise
         error('Reflectarray:Project','Not a supported reflectarray project.');
 end
@@ -2872,6 +2916,10 @@ if project.formatVersion == 4
     project.incidentPhiDeg = 0;
     project.formatVersion = 5;
 end
+if project.formatVersion == 5
+    project.phaseOffsetDeg = 0;
+    project.formatVersion = 6;
+end
 % Older projects stored a drawing-only cell angle. It had no
 % effect on the scalar pattern and is no longer part of the model.
 if isfield(project,'rotationDeg')
@@ -2884,7 +2932,7 @@ function A = reflectarrayValidateProject(P)
 %   Validate the entire project before any live application state changes.
 
 if ~isstruct(P) || ~isscalar(P) || ~isfield(P,'formatVersion') || ...
-        ~isequal(P.formatVersion,5)
+        ~isequal(P.formatVersion,6)
     error('Reflectarray:Project','Not a supported reflectarray project.');
 end
 checkRange(P,'M',2,60,true);
@@ -2898,6 +2946,11 @@ checkRange(P,'incidentThetaDeg',0,85,false);
 checkRange(P,'incidentPhiDeg',0,360,false);
 checkRange(P,'beamThetaDeg',0,90,false);
 checkRange(P,'beamPhiDeg',0,360,false);
+checkRange(P,'phaseOffsetDeg',0,360,false);
+if P.phaseOffsetDeg == 360
+    error('Reflectarray:Project', ...
+        'Global phase offset must be below 360 degrees.');
+end
 checkRange(P,'gridAngleDeg',1,179,false);
 checkRange(P,'rowStaggerLambda',-10,10,false);
 checkRange(P,'staggerAngleDeg',-89.99,89.99,false);

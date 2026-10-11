@@ -3,7 +3,7 @@ function A = reflectarrayValidateProject(P)
 %   Validate the entire project before any live application state changes.
 
 if ~isstruct(P) || ~isscalar(P) || ~isfield(P,'formatVersion') || ...
-        ~isequal(P.formatVersion,5)
+        ~isequal(P.formatVersion,6)
     error('Reflectarray:Project','Not a supported reflectarray project.');
 end
 checkRange(P,'M',2,60,true);
@@ -17,6 +17,11 @@ checkRange(P,'incidentThetaDeg',0,85,false);
 checkRange(P,'incidentPhiDeg',0,360,false);
 checkRange(P,'beamThetaDeg',0,90,false);
 checkRange(P,'beamPhiDeg',0,360,false);
+checkRange(P,'phaseOffsetDeg',0,360,false);
+if P.phaseOffsetDeg == 360
+    error('Reflectarray:Project', ...
+        'Global phase offset must be below 360 degrees.');
+end
 checkRange(P,'gridAngleDeg',1,179,false);
 checkRange(P,'rowStaggerLambda',-10,10,false);
 checkRange(P,'staggerAngleDeg',-89.99,89.99,false);

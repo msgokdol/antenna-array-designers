@@ -38,7 +38,8 @@ else
     uiY = sind(A.incidentThetaDeg)*sind(A.incidentPhiDeg);
     incidentPathMM = -(X*uiX+Y*uiY);
 end
-maps.continuousDeg = mod(rad2deg(k*(incidentPathMM-X*ux-Y*uy)),360);
+maps.continuousDeg = mod( ...
+    rad2deg(k*(incidentPathMM-X*ux-Y*uy))+A.phaseOffsetDeg,360);
 maps.continuousMask = reflectarrayShapeMask(X,Y,S.shape);
 if ~any(A.active(:)), maps.continuousMask(:) = false; end
 maps.continuousXMM = x;
